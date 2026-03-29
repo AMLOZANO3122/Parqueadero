@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - RuedaSport</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="estil.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .back-container { margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper registration">
+        <div class="content-box">
+            <div class="info-content">
+                <div class="logo-box"><i class='bx bxs-car'></i> <span>RuedaSport</span></div>
+                <h1>Únete ahora!</h1>
+                <p>“Crea tu cuenta y empieza a gestionar tu parqueadero de la manera más eficiente”.</p>
+                <div class="back-container"><a href="Cliente.html" class="btn-back"><i class='bx bx-arrow-back'></i> Volver</a></div>
+            </div>
+            <div class="form-content">
+                <h2>Registrarse</h2>
+                <form id="formRegistro">
+                    <div class="input-box">
+                        <input type="text" name="nombre" required>
+                        <label>Nombre completo</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" name="correo" required>
+                        <label>Correo electrónico</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" name="password" id="p1" required>
+                        <label>Contraseña</label>
+                    </div>
+                    <button type="submit" class="btn btn-signin-glow">REGISTRARSE</button>
+                    <div class="link"><p>¿Ya tienes cuenta? <a href="Cliente.html">Inicia sesión</a></p></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('formRegistro').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página cambie
+            
+            const formData = new FormData(this);
+
+            fetch('RegistroCliente_db.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.includes('success')) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Registro exitoso!',
+                        text: 'Tu cuenta ha sido creada.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => { window.location.href = 'Cliente.html'; });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.includes('existe') ? 'Este correo ya está registrado.' : 'Ocurrió un error al registrar.'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

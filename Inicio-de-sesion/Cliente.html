@@ -2,22 +2,133 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes</title>
+    <title>Bienvenida - RuedaSport</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="estil.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .back-container {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
 
-    <!--AQUÍ SOLO SE CORRIGE EL ACTION -->
-    <form action="Clientedb.php" method="post">
+    <div class="wrapper">
+        <div class="content-box">
+            <div class="info-content">
+                <div class="logo-box">
+                    <i class='bx bxs-car'></i> <span>RuedaSport</span>
+                </div>
+                <h1>Bienvenidos!</h1>
+                <p>“Todo listo para ti, inicia sesión y maneja tu parqueadero como un pro”.</p>
+                
+                <div class="back-container">
+                    <a href="../index.html" class="btn-back">
+                        <i class='bx bx-arrow-back'></i> Volver
+                    </a>
+                </div>
+            </div>
 
-        <h1>Sistema Login</h1>
-        <p>Correo <input type="text" placeholder="" name="Correo"></p>
-        <p>Contraseña <input type="password" placeholder="Ingrese su contraseña" name="Password"></p>
+            <div class="form-content">
+                <h2>Iniciar sesión</h2>
+                
+                <form id="loginForm">
+                    <div class="input-box">
+                        <input type="email" name="correo" id="emailInput" required>
+                        <label>Correo Electronico</label>
+                        <i class='bx bxs-envelope icon-right'></i>
+                    </div>
+                    
+                    <div class="input-box">
+                        <input type="password" name="password" id="passwordField" required>
+                        <label>Contraseña</label>
+                        <i class='bx bxs-show icon-right toggle-password' id="togglePassword"></i>
+                    </div>
 
-        <input type="submit" value="Ingresar">
+                    <div class="options">
+                        <label><input type="checkbox" id="rememberMe"> Acuérdate de mí</label>
+                        <a href="RecuperarPassword.html">¿Has olvidado tu contraseña?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-signin-glow">ENTRAR</button>
+                    
+                    <div class="link">
+                        <p>¿No tienes cuenta? <a href="RegistroCliente.html">Regístrate</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    </form>
-    
+    <script>
+        const passwordField = document.getElementById('passwordField');
+        const togglePassword = document.getElementById('togglePassword');
+        const emailInput = document.getElementById('emailInput');
+        const rememberMe = document.getElementById('rememberMe');
+
+        // 1. Cargar correo guardado si existe (Acuérdate de mí)
+        window.onload = () => {
+            const savedEmail = localStorage.getItem('userEmail');
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberMe.checked = true;
+            }
+        };
+
+        // 2. Mostrar/ocultar contraseña
+        togglePassword.addEventListener('click', function () {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('bxs-show');
+            this.classList.toggle('bx-low-vision'); 
+        });
+
+        // 3. Envío del formulario con AJAX y SweetAlert2
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+
+            fetch('Clientedb.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.includes('success')) {
+                    // Manejo de la opción "Acuérdate de mí"
+                    if (rememberMe.checked) {
+                        localStorage.setItem('userEmail', emailInput.value);
+                    } else {
+                        localStorage.removeItem('userEmail');
+                    }
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Bienvenido!',
+                        text: 'Inicio de sesión correcto.',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true
+                    }).then(() => {
+                        window.location.href = 'Clientehome.html';
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Acceso denegado',
+                        text: 'Correo o contraseña incorrectos.',
+                        confirmButtonColor: '#ff0000'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
 </body>
-</html>                                                     
+</html>

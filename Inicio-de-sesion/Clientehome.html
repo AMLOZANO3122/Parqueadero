@@ -2,16 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edgue">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes</title>
+    <title>Home - RuedaSport</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #141414; color: white; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .welcome-card { text-align: center; border: 2px solid #ff0000; padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.05); }
+        h1 { font-size: 40px; }
+        .btn-logout { margin-top: 20px; padding: 10px 25px; background: #ff0000; color: white; text-decoration: none; border-radius: 30px; display: inline-block; font-weight: bold; }
+    </style>
 </head>
 <body>
-
-<h1>BIenvenido a tu pagina</h1>
-    
+    <div class="welcome-card">
+        <i class='bx bxs-check-circle' style="font-size: 70px; color: #ff0000;"></i>
+        <h1>Bienvenido a Cliente Home</h1>
+        <p>Has ingresado correctamente a RuedaSport.</p>
+        <a href="Cliente.html" class="btn-logout">Cerrar Sesión</a>
+    </div>
 </body>
-</html>         
+</html>    
 
