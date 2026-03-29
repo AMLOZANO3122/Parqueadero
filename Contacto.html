@@ -6,6 +6,7 @@
     <title>Contacto</title>
     <link rel="stylesheet" href="style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -13,10 +14,10 @@
         <a href="index.html" class="logo">RuedaSport.</a>
         <ul>
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="#">Quienes Somos</a></li>
-            <li><a href="#">Misión y Visión</a></li>
-            <li><a href="servicios.html">Servicios</a></li>
-            <li><a href="Contacto.html">Contáctanos</a></li>
+            <li><a href="Somos.html">Quiénes Somos</a></li>
+            <li><a href="eligir.html">Por qué elegirnos</a></li>
+            <li><a href="Servicios.html">Servicios</a></li>
+            <li><a href="http://localhost/RuedaSport/Contacto.html">Contáctanos</a></li>
         </ul>
     </nav>
 
@@ -25,7 +26,6 @@
     </div>
 
     <div class="container">
-        
         <div class="contact-info">
             <h2>CONTÁCTATE CON NOSOTROS</h2>
             <div class="info-item">
@@ -38,18 +38,16 @@
                 <i class="fas fa-map-marker-alt"></i> <span> Parqueadero RuedaSport Soacha</span>
             </div>
 
-            <div class="btn-sci">
-                <div class="sci-contacto">
-                    <a href="#"><i class="fab fa-whatsapp"></i></a> 
-                    <a href="#"><i class="fab fa-facebook-f"></i></a> 
-                    <a href="#"><i class="fab fa-instagram"></i></a> 
-                    <a href="#"><i class="fab fa-twitter"></i></a> 
-                </div>
+            <div class="sci-contacto">
+                <a href="#"><i class="fab fa-whatsapp"></i></a> 
+                <a href="#"><i class="fab fa-facebook-f"></i></a> 
+                <a href="#"><i class="fab fa-instagram"></i></a> 
+                <a href="#"><i class="fab fa-twitter"></i></a> 
             </div>
         </div>
 
         <div class="contact-form">
-            <form action="contacto.php" method="POST">
+            <form action="contacto.php" method="POST" id="formContacto">
                 <div class="input-group">
                     <input type="text" name="nombre" placeholder="Nombre y apellido" required>
                 </div>
@@ -64,5 +62,60 @@
         </div>
     </div>
 
+    <script>
+    document.getElementById('formContacto').onsubmit = function(e) {
+        e.preventDefault();
+        
+        var btn = document.querySelector('.btn-submit');
+        var originalText = btn.innerHTML;
+        
+        btn.innerHTML = 'ENVIANDO...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+
+        var formData = new FormData(this);
+
+        fetch('contacto.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === "exito") {
+                // ALERTA ANIMADA TIPO JAVA
+                Swal.fire({
+                    title: '¡Mensaje enviado!',
+                    text: 'Gracias por contactarnos, te responderemos pronto.',
+                    icon: 'success',
+                    background: '#1b1b1b', // Color oscuro como tu formulario
+                    color: '#fff',
+                    confirmButtonColor: '#ff0000', // Rojo de tu diseño
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'Contacto.html';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo enviar el mensaje.',
+                    background: '#1b1b1b',
+                    color: '#fff'
+                });
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        })
+        .catch(error => {
+            alert('Error de conexión.');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        });
+    };
+    </script>
 </body>
 </html>

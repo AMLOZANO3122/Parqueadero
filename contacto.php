@@ -19,11 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'amlozano055@gmail.com'; 
-        $mail->Password   = 'zrso svcr fxvg gdpt'; // Tu clave de 16 letras
+        $mail->Password   = 'zrso svcr fxvg gdpt'; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
-        // Parche SSL para XAMPP
         $mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
@@ -40,9 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Body    = "<h2>Nuevo Mensaje</h2><p>Nombre: $nombre</p><p>Email: $correo</p><p>Mensaje: $mensaje</p>";
 
         $mail->send();
-        echo "exito"; // Esto lo lee el JavaScript
+        echo "exito";
+              
     } catch (Exception $e) {
-        echo "Error: {$mail->ErrorInfo}";
+        echo "error";
     }
 }
 ?>
