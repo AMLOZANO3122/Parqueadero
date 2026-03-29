@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Fondo original rescatado */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("home4.jpg") center / cover no-repeat fixed;
+    color: white;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 9%;
+    background: transparent; 
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin-left: 35px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    transition: .5s;
+}
+
+/* 🔥 EFECTO HOVER NEGRO SOLICITADO 🔥 */
+.navbar ul li a:hover {
+    color: #000000 !important; /* Cambia a negro al pasar el cursor */
+}
+
+/* --- FRASE HERO --- */
+.hero-phrase {
+    text-align: center;
+    margin-top: 120px;
+    padding: 0 15%;
+    margin-bottom: 30px;
+}
+
+.hero-phrase p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- CONTENEDOR DEL FORMULARIO --- */
+.container {
+    background: rgba(0, 0, 0, 0.8);
+    width: 90%;
+    max-width: 1000px;
+    padding: 40px;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 auto 50px auto;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 280px;
+}
+
+.contact-info h2 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.info-item i {
+    color: #ff0000;
+    margin-right: 15px;
+    width: 20px;
+}
+
+/* --- ICONOS SOCIALES (Estilo Index.html con efecto circular) --- */
+.sci-contacto {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.sci-contacto a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: 2px solid #ff0000;
+    border-radius: 50%;
+    font-size: 20px;
+    color: white;
+    transition: .5s;
+    text-decoration: none;
+}
+
+.sci-contacto a:hover {
+    background: #ff0000;
+    color: white;
+    box-shadow: 0 0 15px #ff0000;
+    transform: translateY(-3px);
+}
+
+/* --- FORMULARIO --- */
+.contact-form {
+    flex: 1.2;
+    min-width: 280px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    font-size: 1rem;
+}
+
+.input-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* BOTÓN ENVIAR */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: #ff0000;
+    color: white;
+    border: 2px solid #ff0000;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: .5s;
+    box-shadow: 0 0 10px #ff0000;
+}
+
+.btn-submit:hover {
+    background: transparent;
+    color: #ff0000;
+    box-shadow: none;
+}

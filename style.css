@@ -133,6 +133,7 @@ margin: 10px 0 25px;
 .home-info .btn-sci{
 display: flex;
 align-items: center;
+gap: 15px;
 }
 
 /* BOTON */
@@ -147,6 +148,11 @@ font-size: 16px;
 color: white;
 font-weight: 600;
 transition: .5s;
+}
+
+.home-info .btn-sci .btn{
+  flex: 1; /* 🔥 mismo tamaño */
+  text-align: center; /* centra el texto */
 }
 
 .btn:hover{

@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("home4.jpg") center / cover no-repeat fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* --- ANIMACIÓN DE BARRAS NEGRAS --- */
+.bars-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.bars-animation .bar {
+    width: 20%;
+    height: 100%;
+    background: #000;
+    transform: translateY(0);
+    animation: hide-bars .6s ease-in-out forwards;
+    animation-delay: calc(.1s * var(--i));
+}
+
+@keyframes hide-bars {
+    100% { transform: translateY(-100%); }
+}
+
+/* --- NAVBAR (AJUSTADA PARA ESTAR MÁS ABAJO) --- */
+.navbar {
+    position: absolute;
+    top: 40px; /* ANTES: 0. Ahora baja 40px desde el tope */
+    width: 100%;
+    padding: 10px 9%; /* Ajuste de padding para que no se vea tan gorda */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.navbar .logo {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li { margin-left: 35px; }
+
+.navbar ul li a {
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    transition: .5s;
+}
+
+/* Color negro al pasar el cursor */
+.navbar ul li:hover a {
+    color: #000000;
+}
+
+/* --- FRASE HERO --- */
+.hero-text {
+    color: white;
+    text-align: center;
+    max-width: 850px;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin: 220px 20px 80px; /* Aumentado de 180px a 220px para que no choque con la navbar que bajó */
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+/* --- CONTENEDOR DE TARJETAS --- */
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    width: 90%;
+    padding-bottom: 100px;
+}
+
+/* --- TARJETAS --- */
+.card {
+    position: relative;
+    height: 450px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #1b1b1b;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.6s ease;
+}
+
+.intro {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 85px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px 30px;
+    transition: 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.intro h1 {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.intro p, .intro span {
+    color: white;
+    opacity: 0;
+    transition: 0.4s;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+/* --- HOVER TARJETAS --- */
+.card:hover img {
+    transform: scale(1.1);
+    opacity: 0.3;
+}
+
+.card:hover .intro {
+    height: 100%;
+    justify-content: center;
+}
+
+.card:hover p, .card:hover span {
+    opacity: 1;
+}
+

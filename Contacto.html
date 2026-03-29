@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar"> 
+        <a href="index.html" class="logo">RuedaSport.</a>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#">Quienes Somos</a></li>
+            <li><a href="#">Misión y Visión</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="Contacto.html">Contáctanos</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-phrase">
+        <p>¿Tienes dudas o quieres saber más? Escríbenos sin pena, estamos listos para ayudarte y llevar tu parqueadero al siguiente nivel.</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="contact-info">
+            <h2>CONTÁCTATE CON NOSOTROS</h2>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i> <span>+ 57 3024916456</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i> <span>Ruedasport@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i> <span> Parqueadero RuedaSport Soacha</span>
+            </div>
+
+            <div class="btn-sci">
+                <div class="sci-contacto">
+                    <a href="#"><i class="fab fa-whatsapp"></i></a> 
+                    <a href="#"><i class="fab fa-facebook-f"></i></a> 
+                    <a href="#"><i class="fab fa-instagram"></i></a> 
+                    <a href="#"><i class="fab fa-twitter"></i></a> 
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form action="contacto.php" method="POST">
+                <div class="input-group">
+                    <input type="text" name="nombre" placeholder="Nombre y apellido" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="correo" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <textarea name="mensaje" placeholder="Escribe tu mensaje" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar mensaje</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
