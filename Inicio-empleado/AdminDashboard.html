@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administrativo - RuedaSport</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="estil.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .admin-container { padding: 40px; color: white; max-width: 1100px; margin: auto; }
+        .header-admin { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        table { width: 100%; background: #141414; border-collapse: collapse; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
+        th { background: #ff0000; color: #fff; text-transform: uppercase; }
+        .btn-add { background: #ff0000; color: white; padding: 10px 15px; border-radius: 5px; cursor: pointer; border:none; }
+        .btn-del { color: #ff0000; cursor: pointer; font-size: 20px; border:none; background:none; }
+    </style>
+</head>
+<body style="background: #080808;">
+    <div class="admin-container">
+        <div class="header-admin">
+            <h1>Panel Administrativo</h1>
+            <div>
+                <button onclick="nuevoEmp()" class="btn-add">Nuevo Empleado</button>
+                <button onclick="cambiarClaveMaestra()" class="btn-add" style="background:#333; margin-left:10px;">Ajustes Clave</button>
+                <a href="LoginPersonal.html" style="color:#888; margin-left: 15px; text-decoration:none;">Salir</a>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Código</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="lista"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function cargar() {
+            fetch('ListarEmpleados.php').then(res => res.json()).then(data => {
+                let html = '';
+                data.forEach(e => {
+                    html += `<tr><td>${e.nombre}</td><td>${e.correo}</td><td>${e.codigo_empleado}</td>
+                    <td><button onclick="eliminar(${e.id})" class="btn-del"><i class='bx bxs-trash'></i></button></td></tr>`;
+                });
+                document.getElementById('lista').innerHTML = html;
+            });
+        }
+
+        function cambiarClaveMaestra() {
+            Swal.fire({
+                title: 'Nueva Clave Maestra',
+                input: 'password',
+                confirmButtonColor: '#ff0000',
+                showCancelButton: true
+            }).then(result => {
+                if (result.isConfirmed) {
+                    let f = new FormData(); f.append('nueva_clave', result.value);
+                    fetch('ActualizarClaveMaestra_db.php', {method:'POST', body:f})
+                    .then(r => r.text()).then(d => { if(d.trim()==='success') Swal.fire('Éxito', 'Clave actualizada', 'success'); });
+                }
+            });
+        }
+
+        function nuevoEmp() {
+            Swal.fire({
+                title: 'Nuevo Empleado',
+                html: `<input id="n" class="swal2-input" placeholder="Nombre"><input id="c" class="swal2-input" placeholder="Correo"><input id="cod" class="swal2-input" placeholder="Código Staff"><input id="p" type="password" class="swal2-input" placeholder="Password">`,
+                confirmButtonColor: '#ff0000',
+                showCancelButton: true
+            }).then(r => {
+                if (r.isConfirmed) {
+                    let f = new FormData();
+                    f.append('nombre', document.getElementById('n').value);
+                    f.append('correo', document.getElementById('c').value);
+                    f.append('codigo', document.getElementById('cod').value);
+                    f.append('pass', document.getElementById('p').value);
+                    fetch('AgregarEmpleado.php', {method:'POST', body:f}).then(() => cargar());
+                }
+            });
+        }
+
+        function eliminar(id) {
+            if(confirm('¿Eliminar empleado?')) {
+                let f = new FormData(); f.append('id', id);
+                fetch('EliminarEmpleado.php', {method:'POST', body:f}).then(() => cargar());
+            }
+        }
+        window.onload = cargar;
+    </script>
+</body>
+</html>

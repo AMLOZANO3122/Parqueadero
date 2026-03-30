@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../home4.jpg") center / cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.wrapper {
+    width: 1000px;
+    height: 550px;
+    background: rgba(20, 20, 20, 0.95);
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-box { display: flex; width: 100%; }
+
+.info-content {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.logo-box { font-size: 25px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; }
+.logo-box i { color: #ff0000; margin-right: 10px; font-size: 30px; }
+
+.info-content h1 { font-size: 55px; line-height: 1; font-weight: 800; }
+.info-content h3 { font-size: 25px; margin-bottom: 30px; font-weight: 600; }
+
+/* ✅ APLICANDO SEPARACIÓN AL TEXTO SEÑALADO ✅ */
+.info-content p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 50px; /* Separación de 50px */
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 30px;
+    background: #1b1b1b;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: .5s;
+    border: 2px solid #ff0000;
+}
+
+.btn-back:hover {
+    background: #ff0000;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(201, 147, 90, 0.8);
+}
+
+/* Lado Derecho */
+.form-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.form-content h2 { font-size: 32px; text-align: center; margin-bottom: 30px; font-weight: 700; }
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid white;
+    margin-bottom: 30px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding-right: 35px;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%; left: 0;
+    transform: translateY(-50%);
+    transition: .5s;
+    pointer-events: none;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label { top: -5px; font-size: 14px; }
+
+.input-box .icon-right {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    font-size: 18px;
+    color: white;
+}
+
+.toggle-password {
+    cursor: pointer;
+}
+
+/* ✅ APLICANDO SEPARACIÓN A LAS OPCIONES SEÑALADAS ✅ */
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 40px; /* Separación de 40px */
+}
+
+.options a { color: white; text-decoration: none; }
+
+.btn-signin-glow {
+    width: 100%;
+    height: 45px;
+    background: #ff0000;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: .5s;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+}
+
+.btn-signin-glow:hover {
+    background: #cc0000;
+    box-shadow: 0 0 25px rgba(201, 147, 90, 0.8);
+}
+
+.link { text-align: center; margin-top: 25px; font-size: 14px; }
+.link a { color: white; font-weight: 600; text-decoration: none; }

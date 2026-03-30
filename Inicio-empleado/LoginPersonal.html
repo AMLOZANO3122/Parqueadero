@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Staff - RuedaSport</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="estil1.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .back-container { margin-top: 30px; }
+        select {
+            width: 100%; background: transparent; border: none; color: #fff;
+            padding: 10px 0; border-bottom: 2px solid #fff; margin-bottom: 25px;
+            cursor: pointer; font-size: 16px;
+        }
+        select option { background: #1c1c1c; color: #fff; }
+        #camposEmpleado { transition: all 0.3s ease; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content-box">
+            <div class="info-content">
+                <div class="logo-box"><i class='bx bxs-car'></i> <span>RuedaSport</span></div>
+                <h1>Acceso Staff</h1>
+                <p>Gestión interna de personal y administración.</p>
+                <div class="back-container">
+                    <a href="../index.html" class="btn-back"><i class='bx bx-arrow-back'></i> Volver</a>
+                </div>
+            </div>
+
+            <div class="form-content">
+                <h2>Iniciar Sesión</h2>
+                <form id="staffForm">
+                    <div class="input-box-special">
+                        <span style="font-size: 12px; color: #ccc;">Seleccione su Rol</span>
+                        <select id="rolSelect" name="rol" required>
+                            <option value="empleado" selected>Empleado</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+
+                    <div id="camposEmpleado">
+                        <div class="input-box">
+                            <input type="text" name="codigo" id="empCodigo" required>
+                            <label>Código de Empleado</label>
+                            <i class='bx bx-id-card icon-right'></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" name="password" id="empPass" required>
+                            <label>Contraseña</label>
+                            <i class='bx bxs-lock-alt icon-right'></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-signin-glow" id="btnAccion">INGRESAR COMO EMPLEADO</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rolSelect = document.getElementById('rolSelect');
+        const campos = document.getElementById('camposEmpleado');
+        const btnAccion = document.getElementById('btnAccion');
+        const inputs = campos.querySelectorAll('input');
+
+        // Cambiar vista según el rol
+        rolSelect.addEventListener('change', function() {
+            if (this.value === 'administrador') {
+                campos.style.display = "none";
+                btnAccion.innerText = "ACCEDER COMO ADMINISTRADOR";
+                inputs.forEach(i => i.required = false);
+            } else {
+                campos.style.display = "block";
+                btnAccion.innerText = "INGRESAR COMO EMPLEADO";
+                inputs.forEach(i => i.required = true);
+            }
+        });
+
+        // Manejo del formulario
+        document.getElementById('staffForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const rol = rolSelect.value;
+
+            if (rol === 'administrador') {
+                Swal.fire({
+                    title: 'Clave Maestra de Administrador',
+                    input: 'password',
+                    inputPlaceholder: 'Ingrese la clave maestra',
+                    showCancelButton: true,
+                    confirmButtonText: 'Validar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const masterData = new FormData();
+                        masterData.append('clave_maestra', result.value);
+
+                        fetch('VerificarAdmin_db.php', { method: 'POST', body: masterData })
+                        .then(res => res.text())
+                        .then(data => {
+                            const respuesta = data.trim();
+                            // Si la respuesta contiene "success", redirigimos
+                            if (respuesta.includes('success')) {
+                                window.location.href = 'AdminDashboard.html';
+                            } else {
+                                Swal.fire('Error', 'Clave Maestra Incorrecta', 'error');
+                            }
+                        })
+                        .catch(err => Swal.fire('Error de Red', 'No se pudo conectar con el servidor', 'error'));
+                    }
+                });
+            } else {
+                // Lógica para EMPLEADO
+                const formData = new FormData(this);
+                fetch('LoginEmpleado_db.php', { method: 'POST', body: formData })
+                .then(res => res.text())
+                .then(data => {
+                    const respuesta = data.trim();
+                    if (respuesta.includes('success')) {
+                        window.location.href = 'EmpleadoDashboard.html';
+                    } else {
+                        Swal.fire('Error', 'Código o Contraseña incorrectos', 'error');
+                    }
+                })
+                .catch(err => Swal.fire('Error de Red', 'Error al validar empleado', 'error'));
+            }
+        });
+    </script>
+</body>
+</html>
